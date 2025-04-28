@@ -24,7 +24,7 @@ public class MonitorJob implements Job {
             "https://httpstat.us/404"
     );
 
-    // Mensagens de err
+    // Mensagens de erro
     private static final Map<Integer, String> STATUS_ERROR_MESSAGES = new HashMap<>();
     static {
         STATUS_ERROR_MESSAGES.put(400, "Bad Request - Requisição inválida.");
@@ -55,17 +55,19 @@ public class MonitorJob implements Job {
                 }
             }
 
-            // medido em ms
+            // Tempo de carregamento medido em ms
             double loadTimeSeconds = (System.currentTimeMillis() - start) / 1000.0;
             long loadTimeMs = System.currentTimeMillis() - start;
             int status = HTTPChecker.getStatusCode(alvo);
 
-
+            // Verifica se há uma mensagem de erro associada ao status
             if (errorMessage == null && STATUS_ERROR_MESSAGES.containsKey(status)) {
                 errorMessage = STATUS_ERROR_MESSAGES.get(status);
             }
 
+            // Salva no histórico (tabela monitor_log)
             logDAO.save(alvo, new Date(), status, errorMessage, (long) loadTimeSeconds, loadTimeMs);
+
         }
     }
 }
