@@ -27,7 +27,7 @@ class CheckerTest {
     @Test
     @Timeout(value = 3, unit = TimeUnit.SECONDS)
     void testTimeout() {
-        // sleep=6000 ms faz o servidor demorar mais que nosso timeout de 5s
+        // sleep=6000 ms faz o servidor demorar mais que o timeout de 5s
         int status = HTTPChecker.getStatusCode(BASE + "/200?sleep=6000");
         assertEquals(-1, status, "Deveria retornar -1 em caso de timeout");  // timeout detectado
     }

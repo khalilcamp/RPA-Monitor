@@ -19,8 +19,7 @@ public class HTTPChecker {
             con.setConnectTimeout(5000);
             con.setReadTimeout(5000);
             // Respost/Status
-            int code = con.getResponseCode();
-            return code;
+            return con.getResponseCode();
         } catch (SocketTimeoutException e) {
             return -1;
         } catch (IOException e) {
