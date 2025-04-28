@@ -55,7 +55,9 @@ public class MonitorJob implements Job {
                 }
             }
 
-            long loadTime = System.currentTimeMillis() - start;
+            // medido em ms
+            double loadTimeSeconds = (System.currentTimeMillis() - start) / 1000.0;
+            long loadTimeMs = System.currentTimeMillis() - start;
             int status = HTTPChecker.getStatusCode(alvo);
 
 
@@ -63,7 +65,7 @@ public class MonitorJob implements Job {
                 errorMessage = STATUS_ERROR_MESSAGES.get(status);
             }
 
-            logDAO.save(alvo, new Date(), status, errorMessage);
+            logDAO.save(alvo, new Date(), status, errorMessage, (long) loadTimeSeconds, loadTimeMs);
         }
     }
 }
